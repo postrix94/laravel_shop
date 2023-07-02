@@ -13,14 +13,14 @@
             <div class="mt-4">
                 <x-input-label for="surname" :value="__('Фамиля')" />
                 <x-text-input id="surname" class="block mt-1 w-full" type="text" name="surname" :value="old('surname')" required autocomplete="surname" />
-                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                <x-input-error :messages="$errors->get('surname')" class="mt-2" />
             </div>
 
             <!-- Phone -->
             <div class="mt-4">
                 <x-input-label for="phone" :value="__('Телефон')" />
                 <x-text-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required autocomplete="phone" />
-                <x-input-error :messages="$errors->get('surname')" class="mt-2" />
+                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
             </div>
 
             <!-- Birthdate -->
@@ -62,7 +62,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Уже зарегистрирован?') }}
+                {{ __('Уже зарегистрированы?') }}
             </a>
 
             <x-primary-button class="ml-4">
