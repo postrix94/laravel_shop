@@ -8,14 +8,20 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
+
+    protected string $defaultRole;
+
+    public function __construct()
+    {
+        $this->defaultRole = config('permission.roles.customer');
+    }
+
     /**
      * Display the registration view.
      */
@@ -34,6 +40,7 @@ class RegisteredUserController extends Controller
         $fields = $request->validated();
         $fields['password'] = Hash::make($request->password);
         $user = User::create($fields);
+        $user->assignRole($this->defaultRole);
 
         event(new Registered($user));
 
