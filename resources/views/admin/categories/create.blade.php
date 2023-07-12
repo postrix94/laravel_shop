@@ -16,6 +16,7 @@
                         id="name"
                         class="w-full rounded-sm border border-[#e0e0e0] bg-white py-3 px-6 text-base font-small text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     />
+                    @error('name') <p class="text-red-500">{{$message}}</p> @enderror
                 </div>
 
                 <div class="col-span-6 sm:col-span-3 mt-4">
@@ -45,6 +46,8 @@
                         id="description"
                         class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     ></textarea>
+                    @error('description') <p class="text-red-500">{{$message}}</p> @enderror
+
                 </div>
                 <div>
                     <button
