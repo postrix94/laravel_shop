@@ -7,7 +7,7 @@
             <img src="{{ Vite::asset('resources/images/admin/logo-ct.png') }}"
                  class="inline h-full max-w-full transition-all duration-200 ease-nav-brand max-h-8"
                  alt="main_logo"/>
-            <span class="ml-1 font-semibold transition-all duration-200 ease-nav-brand">Admin Dashboard</span>
+            <span class="ml-1 font-semibold transition-all duration-200 ease-nav-brand">Админ панель</span>
         </a>
     </div>
 
@@ -15,33 +15,32 @@
 
     <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
         <ul class="flex flex-col pl-0 mb-0">
-            <x-side-nav-link link="{{ route('admin.dashboard') }}" icon="fa-home" name="Dashboard"/>
+            <x-side-nav-link link="{{ route('admin.dashboard') }}" icon="fa-home" name="Главная"/>
 
             <li class="w-full mt-4">
-                <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60"><i class="fa fa-tags"
-                                                                                              aria-hidden="true"></i>
-                    Categories</h6>
+                <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60"><i class="fa fa-tags" aria-hidden="true"></i>
+                    Категории</h6>
             </li>
 
-            <x-side-nav-link link="{{ 'test' }}" icon="fa-list" name="All Categories"/>
+            <x-side-nav-link link="{{ route('admin.categories.index') }}" icon="fa-list" name="Все категории"/>
 
-            <x-side-nav-link link="{{ 'test' }}" icon="fa-plus" name="Add Categories"/>
+            <x-side-nav-link link="{{ route('admin.categories.create') }}" icon="fa-plus" name="Добавить категорию"/>
 
             <li class="w-full mt-4">
                 <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60"><i class="fa fa-gift"
                                                                                               aria-hidden="true"></i>
-                    Products</h6>
+                    Товары</h6>
             </li>
 
-            <x-side-nav-link link="{{ 'test'}}" icon="fa-list" name="All Products"/>
+            <x-side-nav-link link="{{ 'test'}}" icon="fa-list" name="Все товары"/>
 
-            <x-side-nav-link link="{{ 'test' }}" icon="fa-plus" name="Add Products"/>
+            <x-side-nav-link link="{{ 'test' }}" icon="fa-plus" name="Добавить товар"/>
 
             <li class="w-full mt-4">
-                <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Account pages</h6>
+                <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Аккаунт</h6>
             </li>
 
-            <x-side-nav-link link="{{ 'test' }}" icon="fa-user" name="Profile"/>
+            <x-side-nav-link link="{{ 'test' }}" icon="fa-user" name="Пользователь"/>
         </ul>
     </div>
 </aside>
