@@ -28,8 +28,23 @@ class UpdateCategoryRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'min:2', 'max:50', Rule::unique(Category::class, 'name')->ignore($slug, 'slug')],
-            'description' => ['nullable', 'string'],
+            'description' => ['nullable', 'string', 'max:255'],
             'parent_id' => ['nullable', "exists:App\Models\Category,id"],
+        ];
+
+    }
+        public function messages()
+    {
+        return [
+            'name.required' => 'Поле обязательно для заполнения',
+            'name.string' => 'Введите корректное название',
+            'name.min' => 'Минимальная длина 2 символа',
+            'name.max' => 'Максимальная длина 50 символов',
+
+            'description.string' => 'Введите корректное описание',
+            'description.max' => 'Максимальная длина 255 символов',
+
+            'parent_id.exists' => 'Такого родителя не существует',
         ];
     }
 }

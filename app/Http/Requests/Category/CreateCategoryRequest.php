@@ -12,7 +12,7 @@ class CreateCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->can(config('permission.access.categories.publish'));;
+        return auth()->user()->can(config('permission.access.categories.publish'));
     }
 
     /**
@@ -33,7 +33,16 @@ class CreateCategoryRequest extends FormRequest
     public function messages()
     {
         return [
+            'name.required' => 'Поле обязательно для заполнения',
+            'name.string' => 'Введите корректное название',
+            'name.min' => 'Минимальная длина 2 символа',
+            'name.max' => 'Максимальная длина 50 символов',
+            'name.unique' => 'Такое название уже есть',
 
+            'description.string' => 'Введите корректное описание',
+            'description.max' => 'Максимальная длина 255 символов',
+
+            'parent_id.exists' => 'Такого родителя не существует',
         ];
     }
 }

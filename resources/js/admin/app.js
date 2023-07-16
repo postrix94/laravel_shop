@@ -1,16 +1,22 @@
-import './soft-ui-dashboard-tailwind'
-import './plugins/chartjs.min'
-import './plugins/perfect-scrollbar.min'
-// import './plugins/Chart.extension'
-import './chart-1'
-import './chart-2'
-import './dropdown'
-import './fixed-plugin'
-import './nav-pills'
-// import './navbar-collapse'
-import './navbar-sticky'
-import './perfect-scrollbar'
-import './sidenav-burger'
+import './jquery/jquery.min';
+import './bootstrap/js/bootstrap.bundle.min';
+import './overlayScrollbars/js/jquery.overlayScrollbars.min';
+import './admin_lte/adminlte.min';
+import './jquery-mousewheel/jquery.mousewheel';
+import './raphael/raphael.min';
+import './jquery-mapael/jquery.mapael.min';
+import './jquery-mapael/maps/usa_states.min';
+import './chart.js/Chart.min';
+import './toastr/toastr.min';
+import './scripts/app';
+import './scripts/toastr';
+
+
+//Демо
+import './demo';
+import './dashboard';
+
+
 import.meta.glob([
     '../images/**',
     '../fonts/**',

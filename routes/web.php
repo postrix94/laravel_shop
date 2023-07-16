@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\Admin\{DashboardController,CategoryController};
+use App\Http\Controllers\Admin\{DashboardController,CategoryController,ProductController};
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +33,7 @@ require __DIR__.'/auth.php';
 Route::prefix('admin')->middleware(['auth', 'role:admin|moderator'])->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('categories',CategoryController::class)->except(['show']);
+    Route::resource('products',ProductController::class);
 });
 
 Route::fallback(fn()=> abort(404));
