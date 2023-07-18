@@ -21,16 +21,11 @@ class SideNavLink extends Component
         $this->icon = $icon;
     }
 
-    protected function checkCurrentLink(): array {
+    public function activeLink(): string{
         $isCurrentLink = request()->url() === $this->link;
-        $iconClasses = $isCurrentLink
-            ? 'bg-gradient-to-tl from-purple-700 to-pink-500 font-white text-white'
+        return $isCurrentLink
+            ? 'active-item-sidebar'
             : '';
-        $linkClasses = $isCurrentLink
-            ? 'shadow-soft-xl bg-white'
-            : '';
-
-        return [$iconClasses, $linkClasses];
     }
 
     /**
@@ -38,7 +33,6 @@ class SideNavLink extends Component
      */
     public function render(): View|Closure|string
     {
-        list($iconClasses, $linkClasses) = $this->checkCurrentLink();
-        return view('components.side-nav-link',compact('iconClasses', 'linkClasses'));
+        return view('components.side-nav-link');
     }
 }
