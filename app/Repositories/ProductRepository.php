@@ -24,7 +24,7 @@ class ProductRepository implements Interfaces\IProductRepository
 
             $product = Product::create($data);
             $this->setCategories($product, $data['categories'] ?? []);
-            $this->imageRepository->attach($product,'imagess', $data['images'], $data['slug']);
+            $this->imageRepository->attach($product,'images', $data['images'], $data['slug']);
 
             Db::commit();
 

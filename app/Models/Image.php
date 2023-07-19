@@ -42,7 +42,7 @@ class Image extends Model
     {
         $this->attributes['path'] = FileStorageService::upload(
             $image,
-            $this->attributes['directory'] ?? null
+            $this->attributes['directory'] ?? ""
         );
     }
 
