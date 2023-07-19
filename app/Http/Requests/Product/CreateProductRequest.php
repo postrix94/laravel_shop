@@ -32,7 +32,9 @@ class CreateProductRequest extends FormRequest
             'price' => ['required', 'numeric', 'min:1'],
             'discount' => ['required', 'numeric', 'min:0', 'max:99'],
             'quantity' => ['required', 'numeric', 'min:0'],
-            'categories.*' => ['nullable', 'numeric', 'exists:App\Models\Category,id']
+            'thumbnail' => ['required', 'image:jpeg,png,jpg'],
+            'images.*' => ['image:jpeg,png,jpg'],
+            'categories.*' => ['nullable', 'numeric', 'exists:App\Models\Category,id'],
         ];
     }
 
@@ -65,6 +67,9 @@ class CreateProductRequest extends FormRequest
             'quantity.required' => 'Поле обязательно для заполнения',
             'quantity.min' => 'Введите кол-во товара',
             'quantity.numeric' => 'Введите число',
+
+            'thumbnail.required' => 'Поле обязательно для заполнения',
+            'thumbnail.image' => 'Картинка должна быть формата: jpeg,png,jpg',
 
             'categories.numeric' => 'Ошибка',
             'categories.exists' => 'Ошибка',
