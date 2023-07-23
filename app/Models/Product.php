@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Services\FileStorageService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -47,6 +49,8 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected const DEFAULT_IMAGE_THUMBNAIL = 'resources/images/admin/products/no_product.png';
+
     protected $fillable = [
         'slug',
         'title',
@@ -60,24 +64,39 @@ class Product extends Model
 
     protected $with = ['categories'];
 
-    public function images(): MorphMany {
-        return $this->morphMany(Image::class,'imageble','image_type', 'image_id');
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageble', 'image_type', 'image_id');
     }
 
-    public function categories(): BelongsToMany {
+    public function categories(): BelongsToMany
+    {
         return $this->belongsToMany(Category::class);
     }
 
-    public function slug(): Attribute {
-        return Attribute::make(set: fn(string $value) => Str::of($value)->slug('-'));
+    public function slug(): Attribute
+    {
+        return Attribute::make(set: fn(string $value) => Str::of($value)->slug('-')->value());
     }
 
     /**
      * @return \Attribute
      */
-//    public function thumbnailUrl():Attribute {
-//
-//    }
+    public function thumbnailUrl():Attribute {
 
+        return Attribute::get(function () {
+           return Storage::exists($this->thumbnail) ? Storage::url($this->thumbnail) : \Vite::asset(static::DEFAULT_IMAGE_THUMBNAIL);
+        });
+    }
 
+    public function setThumbnailAttribute($thumbnail)
+    {
+            if(!empty($this->attributes['thumbnail'])) {
+                FileStorageService::remove($this->attributes['thumbnail']);
+            }
+
+            $this->attributes['thumbnail'] =  FileStorageService::upload($thumbnail,
+                $this->attributes['slug']
+            );
+    }
 }

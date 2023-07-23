@@ -21,7 +21,7 @@
                     <tr>
                         <td><p class="text-center">{{$product->id}}</p></td>
                         <td style="width: 5%">
-                            <img alt="Avatar" class="no-product-img d-inline-block" src="{{Vite::asset('resources/images/admin/products/no_product.png')}}">
+                            <img alt="Avatar" class="no-product-img d-inline-block" src="{{$product->thumbnailUrl}}">
                         </td>
                         <td><p class="text-center">{{$product->title}}</p></td>
                         <td>

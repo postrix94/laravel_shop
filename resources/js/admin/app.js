@@ -10,6 +10,8 @@ import './chart.js/Chart.min';
 import './toastr/toastr.min';
 import './scripts/app';
 import './scripts/toastr';
+import './scripts/images-preview';
+import './scripts/images-action';
 
 
 //Демо

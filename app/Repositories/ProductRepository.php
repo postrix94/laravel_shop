@@ -3,10 +3,16 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use App\Repositories\Interfaces\IImageRepository;
 use Illuminate\Support\Facades\DB;
 
 class ProductRepository implements Interfaces\IProductRepository
 {
+    protected IImageRepository $imageRepository;
+
+    public function __construct(IImageRepository $imageRepository) {
+        $this->imageRepository = $imageRepository;
+    }
 
     public function create(array $data): Product|bool
     {
@@ -14,10 +20,11 @@ class ProductRepository implements Interfaces\IProductRepository
             Db::beginTransaction($data);
 
             $data['slug'] = $data['title'];
-            $data['thumbnail'] = 'resources/images/admin/products/no_products.png';
+            ksort($data);
 
             $product = Product::create($data);
             $this->setCategories($product, $data['categories'] ?? []);
+            $this->imageRepository->attach($product,'images', $data['images'], $data['slug']);
 
             Db::commit();
 
