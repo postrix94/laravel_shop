@@ -47,8 +47,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn" data-delete-category>
-                                            <i class="fas fa-trash text-danger"
-                                               data-delete-product="{{$product->title}}"></i>
+                                            <i class="fas fa-trash text-danger"></i>
                                         </button>
                                     </form>
                                 </div>

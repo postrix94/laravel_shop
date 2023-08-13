@@ -27,9 +27,6 @@ $(document).ready(function () {
 
         const template = '<div class="mb-4 text-center"><img src="_url_" style="width: 50%" /></div>'
 
-        $(imagesSelectors.wrapper).html('');
-
-
         while(file = this.files[counter++]) {
             const reader = new FileReader()
             reader.onloadend = function() {

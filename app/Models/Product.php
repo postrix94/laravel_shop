@@ -96,7 +96,7 @@ class Product extends Model
             }
 
             $this->attributes['thumbnail'] =  FileStorageService::upload($thumbnail,
-                $this->attributes['slug']
+                $this->attributes['slug'] . '/thumbnail'
             );
     }
 }
