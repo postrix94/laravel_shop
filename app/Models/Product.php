@@ -99,4 +99,25 @@ class Product extends Model
                 $this->attributes['slug'] . '/thumbnail'
             );
     }
+
+    public function price():Attribute {
+        return Attribute::get(function () {
+            return round($this->attributes['price'], 2);
+        });
+    }
+
+    public function endPrice():Attribute {
+        return Attribute::get(function () {
+            $price = $this->attributes['price'];
+            $discount = $this->attributes['discount'] ?? 0;
+
+            $endPrice = $discount === 0
+                ? $price
+                : ($price - ($price * $discount/100));
+
+            return $endPrice <= 0 ? 1 : round($endPrice, 2);
+        });
+    }
+
+
 }

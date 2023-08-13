@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{route('admin.dashboard')}}" class="brand-link text-center">
+    <a href="{{route('home')}}" class="brand-link text-center">
         <span class="brand-text font-weight-light text-gray">Laravel Shop</span>
     </a>
 
