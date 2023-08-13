@@ -2,7 +2,9 @@
 
 
 use App\Http\Controllers\Ajax\RemoveImageController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\{DashboardController,CategoryController,ProductController};
+use App\Http\Controllers\{CategoriesController,ProductsController};
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,9 +45,9 @@ Route::name('ajax.')->middleware(['auth'])->prefix('ajax')->group(function() {
     });
 });
 
-Route::get('/', function () {
-   return view('home');
-});
+Route::get('/', HomeController::class)->name('home');
+Route::resource('products',ProductsController::class)->only(['index','show']);
+Route::resource('categories',CategoriesController::class)->only(['index','show']);
 
 Route::fallback(fn()=> abort(404));
 
