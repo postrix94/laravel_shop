@@ -1,6 +1,5 @@
 <x-app-layout>
 
-
 <!--Nav-->
 {{--    <x-shop_navigation></x-shop_navigation>--}}
 

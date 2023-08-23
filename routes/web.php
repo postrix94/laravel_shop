@@ -4,7 +4,7 @@
 use App\Http\Controllers\Ajax\RemoveImageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\{DashboardController,CategoryController,ProductController};
-use App\Http\Controllers\{CategoriesController,ProductsController};
+use App\Http\Controllers\{CartController, CategoriesController, CheckoutController, ProductsController};
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('checkout', [CheckoutController::class])->name('checkout');
 });
 
 require __DIR__.'/auth.php';
@@ -48,6 +50,13 @@ Route::name('ajax.')->middleware(['auth'])->prefix('ajax')->group(function() {
 Route::get('/', HomeController::class)->name('home');
 Route::resource('products',ProductsController::class)->only(['index','show']);
 Route::resource('categories',CategoriesController::class)->only(['index','show']);
+
+Route::name('cart.')->prefix('cart')->group(function() {
+   Route::get('/', [CartController::class, 'index'])->name('index');
+   Route::post('{product}', [CartController::class, 'add'])->name('product');
+   Route::delete('/', [CartController::class, 'delete'])->name('delete');
+   Route::post('{product}/count', [CartController::class, 'countUpdate'])->name('count.update');
+});
 
 Route::fallback(fn()=> abort(404));
 

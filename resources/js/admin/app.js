@@ -13,7 +13,6 @@ import './scripts/toastr';
 import './scripts/images-preview';
 import './scripts/images-action';
 
-
 //Демо
 import './demo';
 import './dashboard';
