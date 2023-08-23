@@ -71,7 +71,7 @@
                             <label for="description">Описание товара</label>
                             <textarea class="form-control  @error('description') is-invalid @enderror" id="description"
                                       name="description" rows="3"
-                                      placeholder="Введите описание категории">{{$product->descripiton}}</textarea>
+                                      placeholder="Введите описание категории">{{$product->description}}</textarea>
                             @error('description')
                             <div class="invalid-feedback">{{$message}}</div>@enderror
                         </div>

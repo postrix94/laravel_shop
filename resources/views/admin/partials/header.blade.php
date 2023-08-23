@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     @vite(['resources/css/admin/app.css', 'resources/js/admin/app.js'])
+
+
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
-    <div class="content-wrapper">
+    <div class="content-wrapper ml-0">
 
