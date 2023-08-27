@@ -6,7 +6,7 @@
             <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
                 <div id="products" class="rounded-lg md:w-2/3">
                     @foreach(Cart::instance('cart')->content() as $product)
-                        <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+                        <div class="container_counter justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                             <img
                                 src="{{ $product->model->thumbnailUrl }}"
                                 alt="product-image" class="w-full rounded-lg sm:w-40"/>
@@ -18,8 +18,10 @@
                                     <p class="text-sm">{{ $product->price . "uah" }}</p>
                                 </div>
 
-                                <div class="mt-4 flex flex-col items-end justify-end sm:space-y-6 sm:mt-0 sm:space-x-6">
-                                    <div class="qty mt-5" >
+                                <div class="mt-4 flex flex-col items-end justify-end sm:space-y-6 sm:mt-0 sm:space-x-6 ">
+                                    <div class="qty mt-5">
+                                        <input type="hidden" name="row_id" value="{{$product->rowId}}"/>
+                                        <input type="hidden" name="product_id" value="{{$product->id}}"/>
                                         <span class="minus bg-dark">-</span>
                                         <input type="number" class="count" name="qty" value="{{$product->qty}}">
                                         <input id="quantity_product" type="hidden" name="quantity_product"
@@ -28,7 +30,7 @@
                                     </div>
 
                                     <div class="flex items-center space-x-4">
-                                        <p class="text-sm"><b>Total: </b>{{ $product->subtotal . "uah"}}</p>
+                                        <p class="text-sm product_subtotal"><b>Total: </b>{{ $product->subtotal . "uah"}}</p>
                                         <form action="{{ route('cart.delete') }}" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -52,17 +54,17 @@
                 <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
                     <div class="mb-2 flex justify-between">
                         <p class="text-gray-700">Subtotal</p>
-                        <p class="text-gray-700">{{ Cart::subtotal() . "uah" }}</p>
+                        <p id="subtotal" class="text-gray-700">{{ Cart::subtotal() . "uah" }}</p>
                     </div>
                     <div class="flex justify-between">
                         <p class="text-gray-700">Tax</p>
-                        <p class="text-gray-700">{{ Cart::tax() . "uah"}}</p>
+                        <p id="tax" class="text-gray-700">{{ Cart::tax() . "uah"}}</p>
                     </div>
                     <hr class="my-4"/>
                     <div class="flex justify-between">
                         <p class="text-lg font-bold">Total</p>
                         <div class="flex flex-col items-end">
-                            <p class="mb-1 text-lg font-bold">{{ Cart::total() . "uah"}}</p>
+                            <p id="total" class="mb-1 text-lg font-bold">{{ Cart::total() . "uah"}}</p>
                             <p class="text-sm text-gray-700">including Tax</p>
                         </div>
                     </div>
