@@ -51,8 +51,26 @@ class CartController extends Controller
     /**
      * @param Request $request
      */
-    public function countUpdate(Request $request)
+    public function countUpdate(Request $request, Product $product)
     {
+        $productCount = $request->productCount ?? 1;
+        $rowId = $request->rowId;
+
+
+        if($product->quantity < $productCount || !$rowId) {
+            return response()->json('error', 422);
+        }
+
+        Cart::instance('cart')->update($rowId, $productCount);
+
+        $cart= Cart::instance('cart');
+
+        return response()->json(
+            ["product_subtotal" => $cart->get($rowId)->subtotal,
+            "total" => $cart->total,
+            "subtotal" => $cart->subtotal,
+            "tax" => $cart->tax,
+            ]);
     }
 
 

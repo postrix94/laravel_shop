@@ -14,9 +14,14 @@
 
     {{--   Style  --}}
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
-    @if(request()->routeIs('products.show') || request()->routeIs('cart.index'))
+    @if(request()->routeIs('products.show'))
         @vite(['resources/css/product/counter.css'])
         @vite(['resources/js/products/counter.js'])
+    @endif
+
+    @if(request()->routeIs('cart.index'))
+        @vite(['resources/css/product/counter.css'])
+        @vite(['resources/js/cart/cart.js'])
     @endif
     <style>
         .work-sans {
