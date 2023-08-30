@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/admin/app.js',
                 'resources/js/products/counter.js',
+                'resources/js/payment/paypal.js',
             ],
             refresh: true,
         }),
