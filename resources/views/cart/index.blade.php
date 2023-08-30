@@ -68,10 +68,10 @@
                             <p class="text-sm text-gray-700">including Tax</p>
                         </div>
                     </div>
-                    <button
+                    <a href="{{route('checkout')}}" style="padding-left: 20%;padding-right: 20%;"
                         class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
                         Check out
-                    </button>
+                    </a>
                 </div>
             </div>
         @else
