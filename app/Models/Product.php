@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Services\FileStorageService;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -139,5 +140,9 @@ class Product extends Model implements Buyable
     public function getBuyableWeight($options = null)
     {
         return 0;
+    }
+
+    public function scopeAvailable(Builder $query): Builder {
+        return $query->where('quantity', '>', 0);
     }
 }

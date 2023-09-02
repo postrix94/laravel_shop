@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
 
-    Route::get('order/{orderId}/thank-you', [ThankYouPageController::class, 'thankYou'])->name('payment.thank-you');
+    Route::get('order/{orderId}/paypal-thank-you', [ThankYouPageController::class, 'paypal'])->name('payment.thank-you.paypal');
 
 
 
@@ -65,6 +65,14 @@ Route::name('ajax.')->middleware(['auth'])->prefix('ajax')->group(function() {
 });
 
 Route::get('/', HomeController::class)->name('home');
+
+Route::get('invoice', function () {
+    $order = \App\Models\Order::all()->last();
+    $invoiceService = app()->make(\App\Services\Interfaces\InvoicesServiceInterface::class);
+    $invoice = $invoiceService->generate($order);
+
+    return $invoice->stream();
+});
 Route::resource('products', ProductsController::class)->only(['index','show']);
 Route::resource('categories',CategoriesController::class)->only(['index','show']);
 

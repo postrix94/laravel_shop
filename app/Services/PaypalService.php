@@ -20,8 +20,6 @@ class PaypalService implements Interfaces\PaypalServiceInterface
         $this->payPalClient = new PayPal();
         $this->payPalClient->setApiCredentials(config('paypal'));
         $this->payPalClient->setAccessToken($this->payPalClient->getAccessToken());
-
-
     }
 
     public function create(CreateOrderRequest $request, OrderRepositoryInterface $repository)

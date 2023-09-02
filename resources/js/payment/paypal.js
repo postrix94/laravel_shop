@@ -37,21 +37,29 @@ paypal.Buttons({
     // Call your server to set up the transaction
     createOrder: function(data, actions) {
         return axios.post('/ajax/paypal/order/create', getFields()).then(function(res) {
+            console.log(res.data)
             return res.data.vendor_order_id;
         });
     },
 
     // Call your server to finalize the transaction
     onApprove: function(data, actions) {
-        console.log(data)
-        return axios.post(`/ajax/paypal/order/${data.orderID}/capture`)
+        return axios.post(`/ajax/paypal/order/${data.orderId}/capture`)
             .then(function(res) {
             return res.data;
         }).then(function(orderData) {
-                console.log('capture response', orderData)
+                console.log(orderData)
+               iziToast.success({
+                   title: "Payment process was completed",
+                   position: 'topRight',
+                   onCLousing: ()=> {
+                       window.location.href = `order/${orderData.id}/paypal-thank-you`
+                   }
+
+               });
         })
-            .catch(errorDetail => {
-                var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+            .catch(error => {
+                var errorDetail = Array.isArray(error.details) && error.details[0];
 
                 if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
                     return actions.restart(); // Recoverable state, per:
@@ -61,13 +69,13 @@ paypal.Buttons({
                 if (errorDetail) {
                     var msg = 'Sorry, your transaction could not be processed.';
                     if (errorDetail.description) msg += '\n\n' + errorDetail.description;
-                    if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                    if (error.debug_id) msg += ' (' + error.debug_id + ')';
                     return alert(msg); // Show a failure message (try to avoid alerts in production environments)
                 }
 
                 // Successful capture! For demo purposes:
-                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                var transaction = orderData.purchase_units[0].payments.captures[0];
+                console.log('Capture result', error, JSON.stringify(error, null, 2));
+                var transaction = error.purchase_units[0].payments.captures[0];
                 alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
             });
     }
