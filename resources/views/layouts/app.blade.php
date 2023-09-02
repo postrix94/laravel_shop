@@ -23,6 +23,8 @@
         @vite(['resources/css/product/counter.css'])
         @vite(['resources/js/cart/cart.js'])
     @endif
+    <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
+
     <style>
         .work-sans {
             font-family: 'Work Sans', sans-serif;
@@ -126,6 +128,8 @@
     </div>
 </footer>
 
+<script src="{{ asset('js/iziToast.js') }}"></script>
+@include('vendor.lara-izitoast.toast')
 
 </body>
 </html>

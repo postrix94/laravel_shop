@@ -52,10 +52,11 @@ class OrderRepository implements Interfaces\OrderRepositoryInterface
             ]);
 
             $quantity = $item->model->quantity - $item->qty;
-            $quantity = ($quantity < 1) ? null : $quantity;
+
+            $quantity = ($quantity < 1) ? 0 : $quantity;
 
             if(is_null($quantity) || !$item->model->update(compact('quantity')) ) {
-                throw new \Exception("Error quantity update product {$item->id}");
+                throw new \Exception("Error quantity update product {$item->id} " . __CLASS__ . ' Line ' . __LINE__);
             }
         });
     }
