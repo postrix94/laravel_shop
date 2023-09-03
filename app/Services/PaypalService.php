@@ -61,6 +61,7 @@ class PaypalService implements Interfaces\PaypalServiceInterface
             $result['orderId'] = $order-id;
             DB::commit();
 
+            \App\Events\OrderCreatedEvent::dispatch($order);
             return response()->json($order);
 
         } catch (\Exception $exception) {
