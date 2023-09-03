@@ -5,6 +5,7 @@ use App\Http\Controllers\Ajax\RemoveImageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\{DashboardController,CategoryController,ProductController};
 use App\Http\Controllers\{Ajax\Payments\PaypalController,
+    Callback\TelegramController,
     CartController,
     CategoriesController,
     CheckoutController,
@@ -68,11 +69,16 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::get('invoice', function () {
     $order = \App\Models\Order::all()->last();
+    \App\Events\OrderCreatedEvent::dispatch($order);
     $invoiceService = app()->make(\App\Services\Interfaces\InvoicesServiceInterface::class);
     $invoice = $invoiceService->generate($order);
-
     return $invoice->stream();
 });
+
+Route::prefix('callback')->middleware(['role:admin|moderator|customer'])->name('callback.')->group(function () {
+    Route::get('telegram', TelegramController::class)->name('telegram');
+});
+
 Route::resource('products', ProductsController::class)->only(['index','show']);
 Route::resource('categories',CategoriesController::class)->only(['index','show']);
 
