@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Storage;
+use NotificationChannels\Telegram\TelegramMessage;
 
 class CustomerNotification extends Notification
 {
@@ -30,7 +31,7 @@ class CustomerNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail',];
+        return notifiable()?->user?->telegram_id ? ['mail', 'telegram',] : ['mail',];
     }
 
     /**
@@ -63,6 +64,10 @@ class CustomerNotification extends Notification
     }
 
     public function toTelegram(object $notifiable) {
-
+        return TelegramMessage::create()
+            ->to($notifiable->user->telegram_id)
+            ->content("Hello, {$notifiable->name}")
+            ->line('You order created!')
+            ->line("Thank you!");
     }
 }

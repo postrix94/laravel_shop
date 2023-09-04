@@ -13,6 +13,14 @@ class TelegramController extends Controller
      */
     public function __invoke(TelegramLoginAuth $telegram, Request $request)
     {
-        dd($telegram->validate($request));
+        $data = $telegram->validate($request);
+
+        auth()->user()->update([
+           'telegram_id' => $data->getId(),
+        ]);
+
+        notify()->success("You subscribe to Telegram bot",position: 'topRight');
+
+        return redirect()->route('profile.edit');
     }
 }
