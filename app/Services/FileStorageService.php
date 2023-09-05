@@ -16,13 +16,13 @@ class FileStorageService implements Interfaces\IFileStorageService
         }
 
         $filePath = "public/{$additionalPath}" . Str::random() . "_" . time() . "." . $file->getClientOriginalExtension();
-        \Storage::put($filePath, File::get($file));
+        \Storage::disk('s3')->put($filePath, File::get($file));
 
         return $filePath;
     }
 
     public static function remove(string $file): void
     {
-        \Storage::delete($file);
+        \Storage::disk('s3')->delete($file);
     }
 }

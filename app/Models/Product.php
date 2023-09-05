@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -87,7 +88,20 @@ class Product extends Model implements Buyable
     public function thumbnailUrl():Attribute {
 
         return Attribute::get(function () {
-           return Storage::exists($this->thumbnail) ? Storage::url($this->thumbnail) : \Vite::asset(static::DEFAULT_IMAGE_THUMBNAIL);
+
+            $key = "products.thumbnail.{$this->thumbnail}";
+
+            if(!Cache::has($key)) {
+                $link = Storage::disk('s3')->temporaryUrl($this->thumbnail, now()->addMinutes(10));
+                Cache::put($key, $link, 580);
+                return $link;
+            }
+
+
+            return Cache::get($key);
+//           return Storage::disk('s3')->exists($this->thumbnail)
+//               ? Storage::disk('s3')->temporaryUrl($this->thumbnail, now()->addMinutes(10))
+//               : \Vite::asset(static::DEFAULT_IMAGE_THUMBNAIL);
         });
     }
 
