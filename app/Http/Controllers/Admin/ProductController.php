@@ -64,6 +64,19 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, string $slug, IProductRepository $repository)
     {
        $product = Product::where('slug', $slug)->firstOrFail();
+
+       if((float) $request->get('price') !== $product->price) {
+
+           $productInfo = [
+               'message' => 'Изменилась цена!',
+               'title' => $product->title,
+               'url' => route('products.show', ['product' => $product->slug])
+
+           ];
+
+           event(new \App\Events\UserNotify(json_encode($productInfo)));
+       }
+
        $repository->update($product, $request->validated());
 
        return redirect()->back();
