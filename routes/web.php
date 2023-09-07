@@ -89,5 +89,9 @@ Route::name('cart.')->prefix('cart')->group(function() {
    Route::post('{product}/count', [CartController::class, 'countUpdate'])->name('count.update');
 });
 
+//Route::get('notification', function() {
+//    event(new \App\Events\UserNotify('hello world'));
+//});
+
 Route::fallback(fn()=> abort(404));
 

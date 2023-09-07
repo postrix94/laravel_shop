@@ -80,6 +80,11 @@
     </style>
 
     <!-- Scripts -->
+    <script>
+        window.userID = {{auth()->user()->id}}
+    </script>
+
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">

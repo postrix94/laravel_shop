@@ -17,6 +17,9 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "izitoast": "^1.4.0",
+        "laravel-echo": "^1.15.3",
+        "pusher-js": "^8.3.0",
         "saas": "^1.0.0"
     }
 }
